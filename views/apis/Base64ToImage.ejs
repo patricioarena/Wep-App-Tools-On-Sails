@@ -1,0 +1,142 @@
+<div><br><br></div>
+
+<div class='flotante'>
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="#" onclick="goBack()">
+                <span class="fa fa-arrow-circle-left" aria-hidden="true"></span>
+                &nbsp; Go Back</a></li>
+    </ul>
+</div>
+
+<div class="container">
+
+    <div class="card">
+        <div class="card-header text-center">
+            <h3 class="card-title">Base 64 To Image</h3>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Simple script que corre del lado del cliente. Las tareas que se realizan son la
+                conversion de una imagen a cadena de caracteres codificada en Base64 , posteriormente se muestra la
+                imagen seleccionada y el tamaño de la imagen codificada y sin codificar.</p>
+            <hr class="my-4">
+            <p class="card-text">Simple script that runs on the client's side. The tasks that are performed are the
+                conversion of an image to a character string encoded in Base64, afterwards the selected image and the
+                size of the encoded and uncoded image are displayed.</p>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-lg-6">
+                    <!-- <div class="input-group">
+                        <input type="file" id="inputFileToLoad" class="form-control" placeholder="image" accept="image/*">
+                        <span class="input-group-btn">
+                            <button id="BaseToImage" class="btn btn-primary">View Image &nbsp;
+                                <span class="fa fa-picture-o" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                    </div>  -->
+
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputFileToLoad" aria-describedby="inputGroupFileAddon04" >
+                            <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button" id="BaseToImageView">View Image &nbsp;
+                                <span class="fa fa-picture-o" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div><!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input type="text" id="response" class="form-control" placeholder="Base-64 value" readonly>
+                        <span class="input-group-btn">
+                            <button id="BaseToImageCopy" class="btn btn-primary" data-clipboard-target="#response">Copy
+                                &nbsp;
+                                <span class="fa fa-files-o" aria-hidden="true"></span>
+                            </button>
+                        </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="card text-center">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-2 " id=""></div>
+                <div class="col-lg-4 border" id="original"><p></p></div>
+                <div class="col-lg-4 border" id="encoded"><p></p></div>
+                <div class="col-sm-2 " id=""></div></div>
+            <br>
+            <div class="row">
+                <div class="col-sm-2 " id=""></div>
+                <div class="col-lg-4 border" id="naturalWidth"><p></p></div>
+                <div class="col-lg-4 border" id="naturalHeight"><p></p></div>
+                <div class="col-sm-2 " id=""></div></div>
+            <br>
+            <img id="preview" src="" class="card-img-top" style="display: none;">
+        </div>
+    </div>
+</div><!-- /container -->
+
+
+<script>
+
+    function goBack() {
+        window.location.href = '/apismenu';
+    }
+
+    // Check for the various File API support.
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported.
+    } else {
+        alert('The File APIs are not fully supported in this browser.');
+    }
+
+    $(document).ready(function () {
+        $("#inputFileToLoad").change(function () {
+            var filesSelected = document.getElementById("inputFileToLoad").files;
+            if (filesSelected.length > 0) {
+                var fileToLoad = filesSelected[0];
+                var fileReader = new FileReader();
+                fileReader.onloadend = function (fileLoadedEvent) {
+                    var base64value = fileLoadedEvent.target.result;
+                    $("#response").val(base64value);
+                    document.getElementById("preview").setAttribute('src', $("#response").val());
+                    $("#encoded").text('The encoded size is ' + fileReader.result.length / 1024 + ' kb');
+                    $('#original').text('The original size is ' + fileToLoad.size / 1024 + ' kb');
+                    $("#original").show();
+                    $("#encoded").show();
+                    
+                };
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        });
+
+        $("#BaseToImageView").click(function () {
+            $("#preview").show();
+            var img = document.querySelector('img');
+            $("#naturalWidth").text('The encoded width is ' + img.naturalWidth + ' px');
+            $('#naturalHeight').text('The original height is ' + img.naturalHeight + ' px');
+        });
+
+        $("#BaseToImageCopy").click(function () {
+            var clipboard = new Clipboard('#BaseToImageCopy');
+        });
+
+    });
+
+    function getDimensions() {
+        var img = document.querySelector('img');
+        var altoOriginal = img.naturalHeight; // 600
+        var anchoOriginal = img.naturalWidth; // 600
+        console.log(altoOriginal);
+        console.log(anchoOriginal);
+    }
+
+</script>

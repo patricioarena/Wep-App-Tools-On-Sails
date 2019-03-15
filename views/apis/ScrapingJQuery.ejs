@@ -1,0 +1,98 @@
+<style>
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        border-bottom: 16px solid #3498db;
+        width: 50px;
+        height: 50px;
+        -webkit-animation: spin 2s linear infinite;
+        /* Safari */
+        animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<div><br><br></div>
+
+<div class='flotante'>
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="#" onclick="goBack()">
+                <span class="fa fa-arrow-circle-left" aria-hidden="true"></span>
+                &nbsp; Go Back</a></li>
+    </ul>
+</div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center">
+            <h3 class="card-title">Scraping</h3>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <p class="card-text">La siguiente api obtiene los datos de contacto de la Universidad Nacional Arturo Jauretche
+            realiza el scraping de la pagina web de la misma. Para realizar la tarea se utilizo Puppeteer el cual es una
+            librería de node que proporciona una API de alto nivel para controlar Chrome, la misma es mantenida por el
+            equipo de Chrome DevTools. </p>
+        <hr class="my-4">
+        <p class="card-text">This api obtains the contact data of the National University Arturo Jauretche
+            performs the scraping of the website of the same. To perform the task we used Puppeteer which is a node
+            library that provides a high level API to control Chrome, it is maintained by the Chrome DevTools team.</p>
+        <hr class="my-4">
+    </div>
+
+    <div class="card text-center">
+        <div class="card-body">
+            <div class="demo-container">
+                <div class="demo-box">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function goBack() {
+        window.location.href = '/apismenu';
+    }
+
+    $(document).ready(function () {
+         $("div.demo-container").html("<div class='loader'></div><hr class='my-4'>");
+        $.ajax({
+            url: '/api/UnajContacts',
+            type: 'GET',
+            success: function (res) {
+                console.log(res);
+                $("div.demo-container").html("<p>All new content will be loaded from <a href='https://www.unaj.edu.ar/contacto/'>www.unaj.edu.ar/contacto/</a> <hr class='my-4'></em></p>");
+                for (const key in res) {
+                    document.querySelector("div.demo-container").innerHTML += '<p>' + JSON.stringify(res[key].property) + '</p>';
+                }
+            },
+            error: function (res) {
+                $("div.demo-container").html("<p> Oops... an error occurred! <hr class='my-4'></em></p>" + JSON.stringify(res));
+            }
+        });
+    });
+</script>

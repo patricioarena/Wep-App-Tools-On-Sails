@@ -1,0 +1,75 @@
+<div><br><br></div>
+
+<div class='flotante'>
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="#" onclick="goBack()">
+                <span class="fa fa-arrow-circle-left" aria-hidden="true"></span>
+                &nbsp; Go Back</a></li>
+    </ul>
+</div>
+
+
+<div class="container">
+    <div class="card text-center">
+        <div class="card-header">
+            <h3>APIs Menu</h3>
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-md-center">
+                <div class="col-sm-2 " id="">
+                    <button id="Base64ToImage" class="btn btn-primary">Base 64 To Image &nbsp;
+                        <span class="fa fa-refresh" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="col-sm-2 " id=" ">
+                    <button id="ScrapingJQuery" class="btn btn-primary">Scraping JQuery &nbsp;
+                        <span class="fa fa-times-circle-o" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <!-- <div class="col-sm-2 " id=" ">
+                    <button id=" " class="btn btn-primary">............... &nbsp;
+                        <span class="fa fa-times-circle-o" aria-hidden="true"></span>
+                    </button>
+                </div> -->
+                <div class="col-sm-2 " id=" ">
+                    <button id=" " class="btn btn-primary">............... &nbsp;
+                        <span class="fa fa-times-circle-o" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="col-sm-2 " id="">
+                    <button id=" " class="btn btn-primary">............... &nbsp;
+                        <span class="fa fa-times-circle-o" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="col-sm-2 " id=" ">
+                    <button id=" " class="btn btn-primary">............... &nbsp;
+                        <span class="fa fa-times-circle-o" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function goBack() {
+        window.location.href = '/';
+    }
+
+    $(document).ready(function () {
+        $('#Base64ToImage').click(function () {
+            window.location.href = '/Base64ToImage';
+        });
+
+        $('#ScrapingJQuery').click(function () {
+            window.location.href = '/ScrapingJQuery';
+        });
+        $('#Firebase').click(function () {
+            window.location.href = '/Firebase';
+        });
+    });
+
+</script>
